@@ -1,20 +1,23 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Article } from '../articles/article.entity';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class User {
+  @PrimaryGeneratedColumn()
+  id: number;
 
-    @PrimaryGeneratedColumn()
-    id: number;
+  @Column({ length: 50 })
+  email: string;
 
-    @Column({ length: 50 })
-    email:string;
+  @Column({ length: 255 })
+  password: string;
 
-    @Column({ length: 255 })
-    password:string;
+  @Column({ length: 80, nullable: true })
+  firstname: string;
 
-    @Column({ length: 80 })
-    firstname:string;
+  @Column({ length: 80, nullable: true })
+  lastname: string;
 
-    @Column({ length: 80 })
-    lastname: string;
+  @OneToMany(() => Article, (article) => article.author)
+  articles: Article[];
 }
